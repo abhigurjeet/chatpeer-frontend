@@ -12,10 +12,18 @@ const CurrentChat = (props) => {
   const email = location.state?.email;
   const msgRef = useRef(null);
   const [messages, setMessages] = useState([]);
+  const messagesEndRef = useRef(null);
+
+  const scrollToBottom = () => {
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages]);
   useEffect(() => {
     const socket = io(`${process.env.REACT_APP_API_URL}`);
 
-    // Listen for 'message' event from the server
     socket.on("message", (message) => {
       console.log(message);
       if (message.email === email) {
@@ -104,11 +112,16 @@ const CurrentChat = (props) => {
         <p>{props.receiverEmail}</p>
       </div>
       <div className="chat-window">
-        {messages.map((item) => {
-          if (props.receiverId === item.receiver)
-            return <p className="message">{item.content}</p>;
-          else return <p className="message-reply">{item.content}</p>;
-        })}
+        {messages.map((item, index) => (
+          <div key={index}>
+            {props.receiverId === item.receiver ? (
+              <p className="message">{item.content}</p>
+            ) : (
+              <p className="message-reply">{item.content}</p>
+            )}
+          </div>
+        ))}
+        <div ref={messagesEndRef} />
       </div>
       <div>
         <TextField
