@@ -3,11 +3,11 @@ import Avatar from "@mui/material/Avatar";
 const AllChats = (props) => {
   const email = props.email;
   return (
-    <div className="chats" onClick={() => props.receiver(email)}>
+    <div className="chats" onClick={() => props.receiver(email, props.id)}>
       <Avatar
         sx={{
-          bgcolor: "#FFC5C5", // Set the desired background color
-          color: "#89B9AD", // Set the desired text color
+          bgcolor: "#FFC5C5",
+          color: "#89B9AD",
           margin: "auto",
         }}
       >

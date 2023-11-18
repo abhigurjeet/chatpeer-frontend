@@ -10,10 +10,12 @@ const ChatScreen = () => {
   const location = useLocation();
   const token = location.state?.token;
   const email = location.state?.email;
+  const [receiverId, setReceiverId] = useState("");
   const [allUsers, setAllUsers] = useState([]);
   const [receiverEmail, setReceiverEmail] = useState("");
-  const receiver = (email) => {
+  const receiver = (email, id) => {
     setReceiverEmail(email);
+    setReceiverId(id);
   };
   useEffect(() => {
     const fetchData = async () => {
@@ -50,13 +52,14 @@ const ChatScreen = () => {
               <AllChats
                 key={item.email}
                 email={item.email}
+                id={item._id}
                 receiver={receiver}
               />
             ))}
         </div>
       </div>
       <div className="current-chat">
-        <CurrentChat receiverEmail={receiverEmail} />
+        <CurrentChat receiverEmail={receiverEmail} receiverId={receiverId} />
       </div>
     </div>
   );

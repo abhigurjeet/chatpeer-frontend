@@ -55,7 +55,7 @@ function SignUp() {
         alignItems: "center",
         justifyContent: "space-evenly",
         height: "40vh",
-        margin: "4% auto", // Set the height to full viewport height
+        margin: "4% auto",
       }}
     >
       <Toaster toastOptions={{ duration: 1000 }} />
